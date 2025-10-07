@@ -1,21 +1,21 @@
-# System Zamówień - Dokumentacja
+# System Zamówień
 
 ## Opis
-System zamówień z frontendem React i backendem Node.js. Zaprojektowany do wdrożenia na hostingu lub w kontenerach Docker.
+System zamówień z frontendem React i backendem Node.js. Zaprojektowany do wdrożenia lokalnie lub w Docker.
 
 ## Struktura
 - `frontend/` – aplikacja React
 - `backend/` – serwer Node.js (Express)
-- `tests/` – testy jednostkowe backend
-- `Dockerfile` – pliki do uruchomienia w Docker
-- `nginx.conf` – konfiguracja Nginx dla produkcji
+- `backend/tests/` – testy jednostkowe
+- `Scripts/` – skrypty pomocnicze
+- `Dockerfile` – backend i frontend
+- `nginx.conf` – konfiguracja Nginx
+- `install.sh` – instalacja automatyczna
 
 ## Instalacja lokalna
+
 ### Backend
 ```bash
 cd backend
 npm install
 npm run dev
-
-
-## Struktura projektu
