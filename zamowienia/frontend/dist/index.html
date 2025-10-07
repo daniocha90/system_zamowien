@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Zamówień - Zooleszcz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-lg">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-blue-600">System Zamówień</h1>
+                    <div class="flex space-x-4">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded">PL</button>
+                        <button class="bg-gray-200 px-4 py-2 rounded">EN</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-8">
+            <div class="text-center mb-8">
+                <h2 class="text-4xl font-bold mb-4">Witamy w systemie zamówień</h2>
+                <p class="text-xl text-gray-600">Profesjonalny system dla Twojej firmy</p>
+            </div>
+
+            <!-- Products -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-2">Laptop Gaming Pro</h3>
+                    <p class="text-gray-600 mb-4">Wydajny laptop do gier i pracy</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold">4 305 zł</span>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded">Dodaj do koszyka</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-2">Smartphone Premium</h3>
+                    <p class="text-gray-600 mb-4">Flagowy smartfon z aparatem</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold">3 075 zł</span>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded">Dodaj do koszyka</button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-2">Monitor 4K 27"</h3>
+                    <p class="text-gray-600 mb-4">Monitor do profesjonalnej pracy</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold">1 476 zł</span>
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded">Dodaj do koszyka</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="text-center">
+                <a href="/order" class="bg-green-500 text-white px-8 py-3 rounded-lg text-lg font-bold mr-4">
+                    Złóż zamówienie
+                </a>
+                <a href="/admin" class="bg-gray-500 text-white px-8 py-3 rounded-lg text-lg font-bold">
+                    Panel admina
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8 mt-16">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; 2024 Zooleszcz Sp. z o.o. - System Zamówień</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
