@@ -1,0 +1,60 @@
+name: Deploy to Cyber_Folks
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+          npm run build
+
+      - name: (Optional) Build backend
+        working-directory: ./backend
+        run: |
+          if [ -f package.json ]; then
+            if [ -f package-lock.json ]; then npm ci; else npm install; fi
+            npm run build --if-present || echo "No backend build"
+          fi
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Ensure target dir exists
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} "mkdir -p ${{ secrets.DEPLOY_PATH }}"
+
+      - name: Deploy frontend via rsync
+        run: rsync -avz --delete ./frontend/build/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/frontend/
+
+      - name: Deploy backend via rsync
+        run: |
+          if [ -d backend ]; then
+            rsync -avz --delete ./backend/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }}/backend/
+          else
+            echo "No backend folder. Skipping."
+          fi
+
+      - name: Post-deploy commands
+        run: |
+          ssh ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} <<'EOF'
+            echo "Deployment finished"
+            # cd /home/zooleszc/domains/zamowienia.zoleszcz.pl/backend && npm install --production
+            # pm2 restart all || true
+            # systemctl restart nginx || true
+          EOF
