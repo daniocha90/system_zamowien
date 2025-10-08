@@ -1,46 +1,22 @@
-name: Test system_zamowien
+name: Debug CI - system_zamowien
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
-  build-and-test:
+  debug:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-
-      - name: Install and test backend
-        working-directory: ./backend
+      - name: Show repo root and files
         run: |
-          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
-            npm ci
-          else
-            npm install
-          fi
-          npm run build --if-present
-          npm test || echo "Brak testów w backend"
+          pwd
+          ls -la
+          echo "Find package.json:"
+          find . -maxdepth 3 -type f -name package.json -print || true
+          echo "List frontend and backend:"
+          ls -la frontend || true
+          ls -la backend || true
 
-      - name: Install and test frontend
-        working-directory: ./frontend
-        run: |
-          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
-            npm ci
-          else
-            npm install
-          fi
-          npm run build --if-present
-          npm test || echo "Brak testów w frontend"
+      - name: Show frontend package.json
+        run: cat frontend/package.json || true
